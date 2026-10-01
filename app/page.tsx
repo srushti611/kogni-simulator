@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { 
   Calculator, TrendingUp, ShieldCheck, Download, FileText, 
   Layers, ArrowRight, Code2, Server, Database, RefreshCw, CheckCircle2, 
@@ -98,7 +97,6 @@ export default function Home() {
   const [monthlyOrders, setMonthlyOrders] = useState<number>(10000);
   const [aov, setAov] = useState<number>(120);
   const [frictionLevel, setFrictionLevel] = useState<number>(3);
-  const [showProposal, setShowProposal] = useState<boolean>(false);
 
   // Financial Engine Calculations
   const annualGMV = monthlyOrders * aov * 12;
@@ -112,119 +110,116 @@ export default function Home() {
   const paybackMonths = ((estimatedImplementationCost / totalAnnualBenefit) * 12).toFixed(1);
 
   return (
-    <main className="min-h-screen bg-[#F7F5F0] text-[#111111] p-6 md:p-12 font-sans selection:bg-red-600 selection:text-white">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Header Banner */}
-        <header className="mb-8 border-b-2 border-[#111111] pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <div className="flex items-center gap-6">
-            <div className="bg-white p-3 border-2 border-[#111111] shadow-[4px_4px_0px_0px_#111111] flex-shrink-0">
-              <Image 
-                src="/kognivera-logo.png" 
-                alt="KogniVera Logo" 
-                width={52} 
-                height={52} 
-                className="object-contain"
-              />
-            </div>
-            <div>
-              <div className="inline-block bg-[#111111] text-white px-3 py-1 text-xs font-black tracking-widest uppercase mb-1">
-                KogniVera Enterprise Architecture Practice
-              </div>
-              <h1 className="text-2xl md:text-4xl font-black tracking-tighter uppercase leading-none">
-                Enterprise Integration <span className="text-red-600">Blueprint</span>
-              </h1>
-            </div>
-          </div>
+    <main className="min-h-screen bg-[#F8F9FA] text-[#0B2545] font-sans">
+      
+      {/* KogniVera Corporate Header Bar */}
+      <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           
-          <div className="flex items-center gap-4">
+          {/* Brand Titles (Logo Excluded) */}
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0056D2] uppercase">
+              <span>KogniVera Solution Architecture</span>
+              <span>•</span>
+              <span className="text-gray-500">Retail IT Practice</span>
+            </div>
+            <h1 className="text-xl md:text-2xl font-extrabold text-[#0B2545] tracking-tight mt-0.5">
+              Enterprise Digital Transformation Hub
+            </h1>
+          </div>
+
+          {/* Module Switcher & Actions */}
+          <div className="flex items-center gap-3">
             {activeTab === 'frs' && (
               <button 
                 onClick={() => window.print()}
-                className="bg-red-600 hover:bg-[#111111] text-white px-5 py-2.5 text-xs font-black tracking-widest uppercase transition-colors flex items-center gap-2 cursor-pointer border-2 border-[#111111] shadow-[4px_4px_0px_0px_#111111]"
+                className="bg-[#D90429] hover:bg-[#b0021f] text-white px-4 py-2 rounded-md text-xs font-bold transition-colors flex items-center gap-1.5 shadow-sm"
               >
-                <Printer className="w-4 h-4" /> Export Spec PDF
+                <Printer className="w-3.5 h-3.5" /> Export Spec
               </button>
             )}
 
-            {/* Main Module Switcher */}
-            <div className="flex border-2 border-[#111111] bg-white shadow-[4px_4px_0px_0px_#111111]">
+            <div className="bg-[#F8F9FA] p-1 rounded-lg border border-gray-200 flex items-center gap-1">
               <button 
                 onClick={() => setActiveTab('frs')}
-                className={`px-5 py-2.5 text-xs font-black uppercase tracking-wider transition-colors ${
+                className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${
                   activeTab === 'frs' 
-                    ? 'bg-[#111111] text-white' 
-                    : 'bg-white text-[#111111] hover:bg-gray-100'
+                    ? 'bg-[#002B66] text-white shadow-sm' 
+                    : 'text-gray-600 hover:text-[#002B66]'
                 }`}
               >
                 Module 1: FRS Specification
               </button>
               <button 
                 onClick={() => setActiveTab('roi')}
-                className={`px-5 py-2.5 text-xs font-black uppercase tracking-wider transition-colors border-l-2 border-[#111111] ${
+                className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${
                   activeTab === 'roi' 
-                    ? 'bg-[#111111] text-white' 
-                    : 'bg-white text-[#111111] hover:bg-gray-100'
+                    ? 'bg-[#002B66] text-white shadow-sm' 
+                    : 'text-gray-600 hover:text-[#002B66]'
                 }`}
               >
                 Module 2: ROI Simulator
               </button>
             </div>
           </div>
-        </header>
+
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto p-6 md:p-8">
 
         {/* MODULE 1: FRS & SYSTEM ARCHITECTURE VIEW */}
         {activeTab === 'frs' && (
-          <div className="space-y-8">
+          <div className="space-y-6">
             
-            {/* Sub-Navigation Tabs */}
-            <div className="flex flex-wrap border-b-2 border-[#111111] gap-3 pb-2 print:hidden">
+            {/* Sub-Navigation Navigation */}
+            <div className="bg-white p-2 rounded-lg border border-gray-200 shadow-sm flex flex-wrap gap-2 print:hidden">
               <button 
                 onClick={() => setActiveFrsSection('arch')}
-                className={`text-xs font-black uppercase tracking-wider px-4 py-2 border-2 border-[#111111] transition-all ${
+                className={`text-xs font-bold px-4 py-2 rounded-md transition-all ${
                   activeFrsSection === 'arch' 
-                    ? 'bg-red-600 text-white shadow-[3px_3px_0px_0px_#111111]' 
-                    : 'bg-white text-[#111111] hover:bg-gray-100'
+                    ? 'bg-[#0056D2] text-white' 
+                    : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
-                1. Architecture
+                1. System Architecture
               </button>
               <button 
                 onClick={() => setActiveFrsSection('flows')}
-                className={`text-xs font-black uppercase tracking-wider px-4 py-2 border-2 border-[#111111] transition-all ${
+                className={`text-xs font-bold px-4 py-2 rounded-md transition-all ${
                   activeFrsSection === 'flows' 
-                    ? 'bg-red-600 text-white shadow-[3px_3px_0px_0px_#111111]' 
-                    : 'bg-white text-[#111111] hover:bg-gray-100'
+                    ? 'bg-[#0056D2] text-white' 
+                    : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
                 2. Sync Data Flows
               </button>
               <button 
                 onClick={() => setActiveFrsSection('mapper')}
-                className={`text-xs font-black uppercase tracking-wider px-4 py-2 border-2 border-[#111111] transition-all ${
+                className={`text-xs font-bold px-4 py-2 rounded-md transition-all ${
                   activeFrsSection === 'mapper' 
-                    ? 'bg-red-600 text-white shadow-[3px_3px_0px_0px_#111111]' 
-                    : 'bg-white text-[#111111] hover:bg-gray-100'
+                    ? 'bg-[#0056D2] text-white' 
+                    : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
-                3. Schema Mapper
+                3. Interactive Schema Mapper
               </button>
               <button 
                 onClick={() => setActiveFrsSection('errors')}
-                className={`text-xs font-black uppercase tracking-wider px-4 py-2 border-2 border-[#111111] transition-all ${
+                className={`text-xs font-bold px-4 py-2 rounded-md transition-all ${
                   activeFrsSection === 'errors' 
-                    ? 'bg-red-600 text-white shadow-[3px_3px_0px_0px_#111111]' 
-                    : 'bg-white text-[#111111] hover:bg-gray-100'
+                    ? 'bg-[#0056D2] text-white' 
+                    : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
                 4. Discrepancy & Error Engine
               </button>
               <button 
                 onClick={() => setActiveFrsSection('payloads')}
-                className={`text-xs font-black uppercase tracking-wider px-4 py-2 border-2 border-[#111111] transition-all ${
+                className={`text-xs font-bold px-4 py-2 rounded-md transition-all ${
                   activeFrsSection === 'payloads' 
-                    ? 'bg-red-600 text-white shadow-[3px_3px_0px_0px_#111111]' 
-                    : 'bg-white text-[#111111] hover:bg-gray-100'
+                    ? 'bg-[#0056D2] text-white' 
+                    : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
                 5. API Contracts
@@ -234,45 +229,48 @@ export default function Home() {
             {/* SECTION 1: ARCHITECTURE */}
             {activeFrsSection === 'arch' && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 border-2 border-[#111111] shadow-[6px_6px_0px_0px_#111111]">
-                  <div className="flex items-center justify-between border-b-2 border-[#111111] pb-3 mb-4">
-                    <span className="text-xs font-black uppercase bg-gray-200 px-2 py-0.5">Source Systems</span>
-                    <Server className="w-5 h-5 text-[#111111]" />
+                <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+                    <span className="text-[11px] font-bold text-[#0056D2] bg-blue-50 px-2 py-0.5 rounded">Legacy Layer</span>
+                    <Server className="w-5 h-5 text-[#002B66]" />
                   </div>
-                  <h3 className="font-black uppercase text-lg mb-2">Legacy ERP / PIM</h3>
-                  <p className="text-xs text-gray-700 leading-relaxed font-medium mb-4">
-                    Monolithic SAP S/4HANA & custom SQL databases housing master SKU records.
+                  <h3 className="font-bold text-lg text-[#0B2545] mb-2">Legacy ERP / PIM</h3>
+                  <p className="text-xs text-gray-600 leading-relaxed font-medium mb-4">
+                    Monolithic SAP S/4HANA & custom SQL databases housing master SKU records and offline order ledgers.
                   </p>
-                  <div className="bg-[#F7F5F0] p-3 border border-[#111111] text-[11px] font-mono space-y-1">
+                  <div className="bg-[#F8F9FA] p-3 rounded-lg text-[11px] font-mono text-gray-700 space-y-1">
                     <div>• Sync Protocol: SFTP Batch / SOAP</div>
+                    <div>• Update Rate: 6-Hour Interval</div>
                   </div>
                 </div>
 
-                <div className="bg-[#111111] text-white p-6 border-2 border-[#111111] shadow-[6px_6px_0px_0px_#DC2626]">
-                  <div className="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
-                    <span className="text-xs font-black uppercase bg-red-600 text-white px-2 py-0.5">Integration Engine</span>
-                    <RefreshCw className="w-5 h-5 text-red-500 animate-spin" />
+                <div className="bg-[#002B66] text-white p-6 rounded-xl shadow-md border border-[#001D4A]">
+                  <div className="flex items-center justify-between border-b border-blue-900 pb-3 mb-4">
+                    <span className="text-[11px] font-bold text-white bg-[#D90429] px-2 py-0.5 rounded">Integration Engine</span>
+                    <RefreshCw className="w-5 h-5 text-blue-300 animate-spin" />
                   </div>
-                  <h3 className="font-black uppercase text-lg mb-2 text-white">KogniVera Sync Hub</h3>
-                  <p className="text-xs text-gray-300 leading-relaxed font-medium mb-4">
-                    Event-driven middleware tier utilizing message queues & DLQ failover handlers.
+                  <h3 className="font-bold text-lg text-white mb-2">KogniVera Sync Hub</h3>
+                  <p className="text-xs text-blue-100 leading-relaxed font-medium mb-4">
+                    Event-driven middleware tier utilizing message queues, schema transformation mappers, and real-time logs.
                   </p>
-                  <div className="bg-[#1A1A1A] p-3 border border-gray-800 text-[11px] font-mono space-y-1 text-gray-300">
-                    <div>• Message Queue: Kafka / DLQ</div>
+                  <div className="bg-[#001D4A] p-3 rounded-lg text-[11px] font-mono text-blue-200 space-y-1">
+                    <div>• Message Queue: Kafka / RabbitMQ</div>
+                    <div>• Retry Policy: Exponential Backoff</div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 border-2 border-[#111111] shadow-[6px_6px_0px_0px_#111111]">
-                  <div className="flex items-center justify-between border-b-2 border-[#111111] pb-3 mb-4">
-                    <span className="text-xs font-black uppercase bg-gray-200 px-2 py-0.5">Target Platform</span>
-                    <Database className="w-5 h-5 text-red-600" />
+                <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+                    <span className="text-[11px] font-bold text-[#0056D2] bg-blue-50 px-2 py-0.5 rounded">Target Layer</span>
+                    <Database className="w-5 h-5 text-[#0056D2]" />
                   </div>
-                  <h3 className="font-black uppercase text-lg mb-2">Commercetools APIs</h3>
-                  <p className="text-xs text-gray-700 leading-relaxed font-medium mb-4">
-                    Headless commerce platform providing REST & GraphQL endpoints.
+                  <h3 className="font-bold text-lg text-[#0B2545] mb-2">Commercetools APIs</h3>
+                  <p className="text-xs text-gray-600 leading-relaxed font-medium mb-4">
+                    Headless commerce platform providing REST & GraphQL endpoints for global storefront checkouts.
                   </p>
-                  <div className="bg-[#F7F5F0] p-3 border border-[#111111] text-[11px] font-mono space-y-1">
-                    <div>• API Architecture: REST & GraphQL</div>
+                  <div className="bg-[#F8F9FA] p-3 rounded-lg text-[11px] font-mono text-gray-700 space-y-1">
+                    <div>• API Architecture: RESTful & GraphQL</div>
+                    <div>• Auth: OAuth 2.0 Bearer Token</div>
                   </div>
                 </div>
               </div>
@@ -280,16 +278,16 @@ export default function Home() {
 
             {/* SECTION 2: DATA FLOWS */}
             {activeFrsSection === 'flows' && (
-              <div className="bg-white p-8 border-2 border-[#111111] shadow-[8px_8px_0px_0px_#111111]">
-                <h3 className="font-black uppercase text-xl border-b-2 border-[#111111] pb-4 mb-6">Functional Requirement Data Flows</h3>
-                <div className="space-y-4">
-                  <div className="p-4 bg-[#F7F5F0] border-2 border-[#111111] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                <h3 className="font-bold text-lg text-[#0B2545] border-b border-gray-100 pb-3 mb-4">Functional Requirement Data Flows</h3>
+                <div className="space-y-3">
+                  <div className="p-4 bg-[#F8F9FA] rounded-lg border border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <span className="bg-[#111111] text-white text-[10px] font-bold px-2 py-0.5 uppercase">REQ-01</span>
-                      <h4 className="font-black text-sm uppercase mt-1">Real-Time Inventory Stock Level Synchronization</h4>
-                      <p className="text-xs text-gray-700 font-medium mt-1">Trigger delta update to Commercetools Inventory Items endpoint when stock shifts.</p>
+                      <span className="bg-[#002B66] text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">REQ-01</span>
+                      <h4 className="font-bold text-sm text-[#0B2545] mt-1">Real-Time Inventory Stock Level Synchronization</h4>
+                      <p className="text-xs text-gray-600 font-medium mt-1">Trigger delta update to Commercetools Inventory Items endpoint when stock changes in SAP ERP.</p>
                     </div>
-                    <span className="text-xs font-mono font-bold text-red-600 bg-white px-3 py-1.5 border border-[#111111]">SLA: &lt; 2.0s</span>
+                    <span className="text-xs font-mono font-bold text-[#D90429] bg-white px-3 py-1.5 rounded border border-gray-200 shadow-sm">SLA: &lt; 2.0s</span>
                   </div>
                 </div>
               </div>
@@ -297,19 +295,19 @@ export default function Home() {
 
             {/* SECTION 3: SCHEMA MAPPER */}
             {activeFrsSection === 'mapper' && (
-              <div className="space-y-8">
-                <div className="bg-white p-6 border-2 border-[#111111] shadow-[6px_6px_0px_0px_#111111] print:hidden">
-                  <h3 className="font-black uppercase text-sm mb-4 flex items-center gap-2">
-                    <Sliders className="w-4 h-4 text-red-600" />
+              <div className="space-y-6">
+                <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm print:hidden">
+                  <h3 className="font-bold text-sm text-[#0B2545] mb-4 flex items-center gap-2">
+                    <Sliders className="w-4 h-4 text-[#0056D2]" />
                     Configure New Schema Mapping Rule
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                     <div>
-                      <label className="block text-[11px] font-bold uppercase text-gray-700 mb-1">Source (SAP ERP Field)</label>
+                      <label className="block text-[11px] font-bold uppercase text-gray-600 mb-1">Source (SAP ERP Field)</label>
                       <select 
                         value={selectedSource} 
                         onChange={(e) => setSelectedSource(e.target.value)}
-                        className="w-full bg-[#F7F5F0] border-2 border-[#111111] p-2 text-xs font-bold"
+                        className="w-full bg-[#F8F9FA] border border-gray-300 rounded-md p-2 text-xs font-medium"
                       >
                         <option value="TAX_CATEGORY_CODE">TAX_CATEGORY_CODE</option>
                         <option value="EAN_BARCODE">EAN_BARCODE</option>
@@ -319,11 +317,11 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-bold uppercase text-gray-700 mb-1">Transformation Logic</label>
+                      <label className="block text-[11px] font-bold uppercase text-gray-600 mb-1">Transformation Logic</label>
                       <select 
                         value={selectedTransform} 
                         onChange={(e) => setSelectedTransform(e.target.value)}
-                        className="w-full bg-[#F7F5F0] border-2 border-[#111111] p-2 text-xs font-bold"
+                        className="w-full bg-[#F8F9FA] border border-gray-300 rounded-md p-2 text-xs font-medium"
                       >
                         <option value="Lookup UUID">Lookup UUID</option>
                         <option value="Direct Pass-through">Direct Pass-through</option>
@@ -333,11 +331,11 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-bold uppercase text-gray-700 mb-1">Target (Commercetools Field)</label>
+                      <label className="block text-[11px] font-bold uppercase text-gray-600 mb-1">Target (Commercetools Field)</label>
                       <select 
                         value={selectedTarget} 
                         onChange={(e) => setSelectedTarget(e.target.value)}
-                        className="w-full bg-[#F7F5F0] border-2 border-[#111111] p-2 text-xs font-bold"
+                        className="w-full bg-[#F8F9FA] border border-gray-300 rounded-md p-2 text-xs font-medium"
                       >
                         <option value="taxCategory.id">taxCategory.id</option>
                         <option value="masterVariant.key">masterVariant.key</option>
@@ -348,33 +346,33 @@ export default function Home() {
 
                     <button 
                       onClick={handleAddMapping}
-                      className="bg-red-600 hover:bg-[#111111] text-white p-2.5 text-xs font-black uppercase tracking-wider border-2 border-[#111111] shadow-[3px_3px_0px_0px_#111111] transition-colors cursor-pointer"
+                      className="bg-[#0056D2] hover:bg-[#002B66] text-white p-2.5 rounded-md text-xs font-bold transition-colors cursor-pointer"
                     >
-                      + Add Mapping Rule
+                      + Add Rule
                     </button>
                   </div>
                 </div>
 
-                <div className="bg-white border-2 border-[#111111] shadow-[8px_8px_0px_0px_#111111] overflow-x-auto">
-                  <div className="bg-[#111111] text-white p-4 flex justify-between items-center">
-                    <h3 className="font-black uppercase text-sm tracking-wide">Active Enterprise Data Mapping Schema</h3>
-                    <span className="text-[10px] font-mono bg-red-600 text-white px-2 py-0.5 uppercase">{mappings.length} Rules Active</span>
+                <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                  <div className="bg-[#002B66] text-white p-4 flex justify-between items-center">
+                    <h3 className="font-bold text-sm tracking-wide">Active Data Mapping Rules</h3>
+                    <span className="text-[10px] font-mono bg-[#0056D2] text-white px-2 py-0.5 rounded">{mappings.length} Active</span>
                   </div>
-                  <table className="w-full text-left border-collapse font-mono text-xs">
+                  <table className="w-full text-left border-collapse text-xs">
                     <thead>
-                      <tr className="border-b-2 border-[#111111] bg-[#F7F5F0] font-black uppercase">
-                        <th className="p-3 border-r-2 border-[#111111]">Legacy Field</th>
-                        <th className="p-3 border-r-2 border-[#111111]">Transformation</th>
-                        <th className="p-3 border-r-2 border-[#111111]">Target Field</th>
+                      <tr className="border-b border-gray-200 bg-[#F8F9FA] font-bold text-gray-700">
+                        <th className="p-3">Legacy Field</th>
+                        <th className="p-3">Transformation</th>
+                        <th className="p-3">Target Field</th>
                         <th className="p-3">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y-2 divide-[#111111]">
+                    <tbody className="divide-y divide-gray-100 font-mono">
                       {mappings.map((m) => (
                         <tr key={m.id} className="hover:bg-gray-50">
-                          <td className="p-3 font-bold border-r-2 border-[#111111]">{m.sourceField}</td>
-                          <td className="p-3 border-r-2 border-[#111111] text-red-600 font-bold">{m.transformation}</td>
-                          <td className="p-3 font-bold border-r-2 border-[#111111] text-emerald-700">{m.targetField}</td>
+                          <td className="p-3 font-bold text-[#0B2545]">{m.sourceField}</td>
+                          <td className="p-3 text-[#D90429] font-semibold">{m.transformation}</td>
+                          <td className="p-3 font-bold text-emerald-700">{m.targetField}</td>
                           <td className="p-3 text-emerald-600 font-bold">VERIFIED</td>
                         </tr>
                       ))}
@@ -384,38 +382,36 @@ export default function Home() {
               </div>
             )}
 
-            {/* SECTION 4: DISCREPANCY & ERROR ENGINE */}
+            {/* SECTION 4: ERROR ENGINE */}
             {activeFrsSection === 'errors' && (
-              <div className="space-y-8">
-                <div className="bg-white p-6 border-2 border-[#111111] shadow-[6px_6px_0px_0px_#111111] flex justify-between items-center">
+              <div className="space-y-6">
+                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
                   <div>
-                    <span className="text-[10px] font-black uppercase bg-red-600 text-white px-2 py-0.5">Middleware Telemetry</span>
-                    <h3 className="font-black uppercase text-xl mt-1 flex items-center gap-2">
-                      <Terminal className="w-5 h-5 text-red-600" />
-                      Live Sync Event Stream & DLQ Monitor
+                    <span className="text-[10px] font-bold text-white bg-[#D90429] px-2 py-0.5 rounded uppercase">Middleware Telemetry</span>
+                    <h3 className="font-bold text-lg text-[#0B2545] mt-1 flex items-center gap-2">
+                      <Terminal className="w-5 h-5 text-[#0056D2]" />
+                      Live Sync Event Stream
                     </h3>
                   </div>
                   <button 
                     onClick={() => setIsStreaming(!isStreaming)}
-                    className={`px-4 py-2 text-xs font-black uppercase border-2 border-[#111111] shadow-[2px_2px_0px_0px_#111111] flex items-center gap-2 cursor-pointer ${
-                      isStreaming ? 'bg-amber-400 text-[#111111]' : 'bg-emerald-500 text-white'
-                    }`}
+                    className="px-3 py-1.5 text-xs font-bold rounded-md bg-gray-100 hover:bg-gray-200 text-[#0B2545] border border-gray-300 flex items-center gap-1.5"
                   >
                     {isStreaming ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                    {isStreaming ? 'Pause Stream' : 'Resume Stream'}
+                    {isStreaming ? 'Pause' : 'Resume'}
                   </button>
                 </div>
 
-                <div className="bg-[#111111] text-white p-6 border-2 border-[#111111] shadow-[8px_8px_0px_0px_#DC2626] font-mono">
+                <div className="bg-[#001D4A] text-white p-6 rounded-xl shadow-md font-mono">
                   <div className="space-y-2 max-h-[350px] overflow-y-auto pr-2">
                     {logs.map((log) => (
-                      <div key={log.id} className="p-3 border border-gray-800 bg-[#1A1A1A] text-xs flex justify-between items-center">
+                      <div key={log.id} className="p-3 rounded bg-[#002B66]/60 border border-blue-900/50 text-xs flex justify-between items-center">
                         <div className="flex items-center gap-3">
-                          <span className="text-gray-500 text-[10px]">{log.timestamp}</span>
-                          <span className="font-bold text-white bg-gray-800 px-1.5 py-0.5 text-[10px]">{log.sku}</span>
-                          <span>{log.message}</span>
+                          <span className="text-blue-300 text-[10px]">{log.timestamp}</span>
+                          <span className="font-bold text-white bg-blue-900 px-1.5 py-0.5 rounded text-[10px]">{log.sku}</span>
+                          <span className="text-gray-200">{log.message}</span>
                         </div>
-                        <span className="text-[10px] font-bold text-emerald-400 border border-emerald-500/40 px-2 py-0.5">{log.status}</span>
+                        <span className="text-[10px] font-bold text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded">{log.status}</span>
                       </div>
                     ))}
                   </div>
@@ -425,13 +421,13 @@ export default function Home() {
 
             {/* SECTION 5: PAYLOADS */}
             {activeFrsSection === 'payloads' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-[#111111] text-white p-6 border-2 border-[#111111] shadow-[6px_6px_0px_0px_#111111]">
-                  <div className="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
-                    <span className="text-xs font-mono text-gray-400">INPUT: SAP ERP Raw Payload</span>
-                    <Code2 className="w-4 h-4 text-red-500" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-[#002B66] text-white p-6 rounded-xl border border-blue-900 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-blue-900 pb-3 mb-4">
+                    <span className="text-xs font-mono text-blue-200">INPUT: SAP ERP Raw Payload</span>
+                    <Code2 className="w-4 h-4 text-blue-300" />
                   </div>
-                  <pre className="font-mono text-[11px] text-gray-300 leading-relaxed bg-[#1A1A1A] p-4 border border-gray-800 overflow-x-auto">
+                  <pre className="font-mono text-[11px] text-blue-100 leading-relaxed bg-[#001D4A] p-4 rounded-lg overflow-x-auto">
 {`{
   "SAP_MAT_NO": "SKU-99021",
   "WAREHOUSE_ID": "WH-BLR-01",
@@ -442,12 +438,12 @@ export default function Home() {
                   </pre>
                 </div>
 
-                <div className="bg-[#111111] text-white p-6 border-2 border-[#111111] shadow-[6px_6px_0px_0px_#DC2626]">
-                  <div className="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
-                    <span className="text-xs font-mono text-emerald-400">OUTPUT: Commercetools Schema</span>
-                    <Code2 className="w-4 h-4 text-emerald-400" />
+                <div className="bg-white text-[#0B2545] p-6 rounded-xl border border-gray-200 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+                    <span className="text-xs font-mono text-[#0056D2] font-bold">OUTPUT: Commercetools Schema</span>
+                    <Code2 className="w-4 h-4 text-[#0056D2]" />
                   </div>
-                  <pre className="font-mono text-[11px] text-[#A6E22E] leading-relaxed bg-[#1A1A1A] p-4 border border-gray-800 overflow-x-auto">
+                  <pre className="font-mono text-[11px] text-emerald-800 leading-relaxed bg-[#F8F9FA] p-4 rounded-lg border border-gray-200 overflow-x-auto">
 {`{
   "sku": "SKU-99021",
   "quantityOnStock": 425,
@@ -468,19 +464,16 @@ export default function Home() {
         {/* MODULE 2: CLIENT ROI SIMULATOR VIEW */}
         {activeTab === 'roi' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-5 bg-white p-8 border-2 border-[#111111] shadow-[8px_8px_0px_0px_#111111]">
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-                <h2 className="text-lg font-black uppercase tracking-tight flex items-center gap-2">
-                  <Calculator className="w-5 h-5 text-red-600" />
-                  Baseline Metrics
-                </h2>
-                <span className="text-xs font-bold bg-gray-100 px-2.5 py-1 text-gray-700">MODIFIABLE</span>
-              </div>
+            <div className="lg:col-span-5 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+              <h2 className="text-lg font-bold text-[#0B2545] mb-4 pb-3 border-b border-gray-100 flex items-center gap-2">
+                <Calculator className="w-5 h-5 text-[#0056D2]" />
+                Baseline Metrics
+              </h2>
 
-              <div className="space-y-6">
+              <div className="space-y-5">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
-                    Annual Enterprise Revenue: <span className="text-red-600 font-black">${annualRevenue.toLocaleString()}</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
+                    Annual Revenue: <span className="text-[#0056D2] font-extrabold">${annualRevenue.toLocaleString()}</span>
                   </label>
                   <input 
                     type="range" 
@@ -489,13 +482,13 @@ export default function Home() {
                     step="1000000"
                     value={annualRevenue} 
                     onChange={(e) => setAnnualRevenue(Number(e.target.value))}
-                    className="w-full accent-red-600 cursor-pointer h-2 bg-gray-200 rounded-none"
+                    className="w-full accent-[#0056D2] cursor-pointer"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
-                    Monthly Order Volume: <span className="text-red-600 font-black">{monthlyOrders.toLocaleString()} orders</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
+                    Monthly Orders: <span className="text-[#0056D2] font-extrabold">{monthlyOrders.toLocaleString()}</span>
                   </label>
                   <input 
                     type="range" 
@@ -504,13 +497,13 @@ export default function Home() {
                     step="1000"
                     value={monthlyOrders} 
                     onChange={(e) => setMonthlyOrders(Number(e.target.value))}
-                    className="w-full accent-red-600 cursor-pointer h-2 bg-gray-200 rounded-none"
+                    className="w-full accent-[#0056D2] cursor-pointer"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
-                    Average Order Value (AOV): <span className="text-red-600 font-black">${aov}</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
+                    Average Order Value: <span className="text-[#0056D2] font-extrabold">${aov}</span>
                   </label>
                   <input 
                     type="range" 
@@ -519,13 +512,13 @@ export default function Home() {
                     step="5"
                     value={aov} 
                     onChange={(e) => setAov(Number(e.target.value))}
-                    className="w-full accent-red-600 cursor-pointer h-2 bg-gray-200 rounded-none"
+                    className="w-full accent-[#0056D2] cursor-pointer"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
-                    Legacy System Friction Score (1-5): <span className="text-red-600 font-black">{frictionLevel} / 5</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
+                    Friction Score: <span className="text-[#0056D2] font-extrabold">{frictionLevel} / 5</span>
                   </label>
                   <input 
                     type="range" 
@@ -534,50 +527,50 @@ export default function Home() {
                     step="1"
                     value={frictionLevel} 
                     onChange={(e) => setFrictionLevel(Number(e.target.value))}
-                    className="w-full accent-red-600 cursor-pointer h-2 bg-gray-200 rounded-none"
+                    className="w-full accent-[#0056D2] cursor-pointer"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-7 bg-[#111111] text-white p-8 border-2 border-[#111111] shadow-[8px_8px_0px_0px_#DC2626] flex flex-col justify-between">
+            <div className="lg:col-span-7 bg-[#002B66] text-white p-8 rounded-xl shadow-md flex flex-col justify-between border border-[#001D4A]">
               <div>
-                <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-800">
-                  <h2 className="text-lg font-black uppercase tracking-tight flex items-center gap-2 text-white">
-                    <TrendingUp className="w-5 h-5 text-red-500" />
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-blue-900">
+                  <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-blue-300" />
                     Financial Impact Model
                   </h2>
-                  <span className="text-[10px] font-bold bg-red-600 text-white px-2 py-0.5 uppercase tracking-widest">Live Engine</span>
+                  <span className="text-[10px] font-bold bg-[#D90429] text-white px-2 py-0.5 rounded">Live Calculation</span>
                 </div>
 
-                <div className="bg-[#1A1A1A] p-6 border border-gray-800 text-center mb-6">
-                  <span className="text-[11px] uppercase tracking-widest text-gray-400 font-bold">Estimated Net Annual Benefit</span>
-                  <div className="text-4xl md:text-6xl font-black text-red-500 mt-2 tracking-tighter">
+                <div className="bg-[#001D4A] p-6 rounded-lg text-center mb-6 border border-blue-900">
+                  <span className="text-[11px] uppercase tracking-widest text-blue-200 font-bold">Estimated Net Annual Benefit</span>
+                  <div className="text-4xl md:text-5xl font-black text-white mt-2">
                     ${Math.round(totalAnnualBenefit).toLocaleString()}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  <div className="bg-[#1A1A1A] p-4 border border-gray-800">
-                    <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold block">Labor Savings</span>
-                    <span className="text-2xl font-black text-white mt-1 block">${Math.round(laborSavings).toLocaleString()}</span>
+                  <div className="bg-[#001D4A] p-4 rounded-lg border border-blue-900">
+                    <span className="text-[10px] uppercase text-blue-200 font-bold block">Labor Savings</span>
+                    <span className="text-xl font-bold text-white mt-1 block">${Math.round(laborSavings).toLocaleString()}</span>
                   </div>
-                  <div className="bg-[#1A1A1A] p-4 border border-gray-800">
-                    <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold block">Recovered GMV</span>
-                    <span className="text-2xl font-black text-white mt-1 block">${Math.round(revenueRecovery).toLocaleString()}</span>
+                  <div className="bg-[#001D4A] p-4 rounded-lg border border-blue-900">
+                    <span className="text-[10px] uppercase text-blue-200 font-bold block">Recovered GMV</span>
+                    <span className="text-xl font-bold text-white mt-1 block">${Math.round(revenueRecovery).toLocaleString()}</span>
                   </div>
-                  <div className="bg-[#1A1A1A] p-4 border border-gray-800">
-                    <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold block">Payback Period</span>
-                    <span className="text-2xl font-black text-emerald-400 mt-1 block">{paybackMonths} Mo</span>
+                  <div className="bg-[#001D4A] p-4 rounded-lg border border-blue-900">
+                    <span className="text-[10px] uppercase text-blue-200 font-bold block">Payback Period</span>
+                    <span className="text-xl font-bold text-emerald-400 mt-1 block">{paybackMonths} Mo</span>
                   </div>
                 </div>
               </div>
 
-              <div className="border-t border-gray-800 pt-4 flex items-center justify-between text-xs text-gray-400">
+              <div className="border-t border-blue-900 pt-4 flex items-center justify-between text-xs text-blue-200">
                 <span className="flex items-center gap-1 font-mono">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" /> KogniVera Enterprise Architecture
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" /> Verified Model
                 </span>
-                <span className="font-bold text-white uppercase tracking-wider">v2.0 Redux</span>
+                <span className="font-bold text-white">KogniVera Pre-Sales Platform</span>
               </div>
             </div>
           </div>
